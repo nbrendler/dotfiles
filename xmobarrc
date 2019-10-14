@@ -1,0 +1,33 @@
+Config { font = "xft:Salesforce Sans:size=14,WenQuanYi Zen Hei:size=14"
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = Top
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , allDesktops = True
+       , commands = [
+                     Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 20
+                    , Run BatteryP ["BAT0"]
+                        ["-t", "<acstatus>"
+                        , "-L", "20", "-H", "80"
+                        , "-l", "red", "-h", "green"
+                        , "--", "-O", "Charging", "-o", "Battery: <left>%"
+                        ] 20
+                    , Run Memory ["-t","Mem: <usedratio>%"] 20
+                    , Run Swap [] 20
+                    , Run DiskU [("/", "Disk: <usedp>%")]
+                           ["-L", "20", "-H", "50", "-m", "1", "-p", "3"]
+                           20
+                    , Run DynNetwork [] 20
+                    , Run Date "%G-W%V-%u %H:%M:%S" "date" 20
+                    , Run Com "kernelstatus" [] "kernel" 1000
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %battery% | %cpu% | %memory% | %swap% | %disku% | %dynnetwork% | %kernel% | <fc=#ee9a00>%date%</fc>"
+       }
