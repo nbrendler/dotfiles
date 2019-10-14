@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail
+#set -eo pipefail
 
 dir=$1
 olddir=~/dotfiles.old
@@ -9,6 +9,7 @@ bash_profile
 bashrc
 config/termite/config
 fehbg
+shellrc
 vim
 vimrc
 xinitrc
@@ -22,6 +23,7 @@ private_files=$(cat <<EOF
 aws
 gitconfig
 ssh/config
+shellrc/rc.d/aws.sh
 ngrok2/ngrok.yml
 EOF
 )
@@ -53,7 +55,7 @@ for file in $private_files; do
     echo "Moving any existing private dotfiles from ~ to $olddir"
     mv ~/.$file $olddir
     echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/.$file
+    ln -s $dir/private/$file ~/.$file
 done
 
 echo "done"
