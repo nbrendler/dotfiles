@@ -8,8 +8,6 @@
 
 xrdb -merge ~/.Xresources
 
-feh --bg-scale ~/.wallpaper/balls.png
-
 xcompmgr -c &
 
 ibus-daemon -d

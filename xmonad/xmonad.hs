@@ -8,13 +8,14 @@ import XMonad.Layout.Spacing
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.WallpaperSetter
 import XMonad.Actions.CycleWS
 import Control.Monad
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import System.IO
 
-keysToAdd x = 
+keysToAdd x =
     [
         ((modMask x, xK_Down),  nextWS),
         ((modMask x, xK_Up),    prevWS),
@@ -27,6 +28,8 @@ myKeys x = M.union (keys defaultConfig x) (M.fromList (keysToAdd x))
 myTerminal = "termite"
 
 myWorkspaces = ["1","2","3","4","5","6"]
+
+myWallpapers = wallpaperSetter defWallpaperConf
 
 myLayouts = smartSpacing 7 $ tiled ||| Mirror tiled ||| simpleFloat ||| Full ||| emptyBSP
     where
@@ -47,6 +50,6 @@ main = do
         logHook    = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc,
                           ppTitle = xmobarColor "green" "" . shorten 50
-                        },
+                        } <> myWallpapers,
         keys       = myKeys
     }

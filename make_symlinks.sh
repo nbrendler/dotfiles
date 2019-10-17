@@ -25,6 +25,7 @@ gitconfig
 ssh/config
 shellrc/rc.d/aws.sh
 ngrok2/ngrok.yml
+wallpapers
 EOF
 )
 
