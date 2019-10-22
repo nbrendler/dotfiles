@@ -20,12 +20,13 @@ keysToAdd x =
         ((modMask x, xK_Down),  nextWS),
         ((modMask x, xK_Up),    prevWS),
         ((modMask x .|. shiftMask, xK_l),     spawn "slock"),
-        ((modMask x , xK_b),    sendMessage ToggleStruts)
+        ((modMask x , xK_b),    sendMessage ToggleStruts),
+        ((modMask x , xK_p),    spawn "dmenu_fix")
     ]
 
-myKeys x = M.union (keys defaultConfig x) (M.fromList (keysToAdd x))
+myKeys x = M.union (M.fromList (keysToAdd x)) (keys defaultConfig x)
 
-myTerminal = "termite"
+myTerminal = "termite -e 'tmux new-session -A'"
 
 myWorkspaces = ["1","2","3","4","5","6"]
 
